@@ -1,9 +1,11 @@
 using SIR_pkg
 using Revise
+using Plots
 
 #define parameters for SIR model
 c = 8 #8 Estimated contacts per person
-β = 0.035 # Transmission Probability
+#β = 0.031 # Transmission Probability
+β_range = [0.03, 0.04]
 
 
 #n = 10 #number of infection days
@@ -32,19 +34,21 @@ data_time = [15,16,17,18,19,20,21,22,23,24,25]
 
 data_s = [0,0,1,2,5]
 data_time_s = [21,22,23,24,25]
-#data = [[0,1],[1,0],[2,5],[3,12],[4,0],[5,12],[6,0],[7,12],[8,11],[9,13],[10,0],[11,17],[12,41],[13,27],[14,20],[15,41],[16,47]]
 
-
-#t = sol.test
-#I_data = [sol(ti)[2] for ti in t]
-#solution = SIR_pkg.simulate_model(pop0, params, tspan)
 solution = simulate_model(S, I, Is, R, c, β, γ, ps, γs, α, tspan)
 
+total_error = SIR_error(solution, data, data_time, 2) + SIR_error(solution, data_s, data_time_s, 3)
 
-plot_solution(solution,2,data,data_time)
+step = 0.0001
+error_array = []
 
+β_vals = β_range[1]:step:β_range[2]
+for β in β_vals
+    solution = simulate_model(S, I, Is, R, c, β, γ, ps, γs, α, tspan)
+    total_error = SIR_error(solution, data, data_time, 2) + SIR_error(solution, data_s, data_time_s, 3)
+    push!(error_array, total_error)
+end
 
-plot_solution(solution,3,data_s,data_time_s)
-plot_solution_SIRS(solution)
+plot(β_vals, error_array, xlabel="β", ylabel = "Error", title = "Error vs β")
 
-#println(get_R0(c, β, γ, ps, γs))
+println(β_vals[argmin(error_array)])
