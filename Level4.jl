@@ -16,6 +16,8 @@ ps = 0.2 #20% chance of serious infection
 α = 1/30 # 1 month till Susceptible
 
 
+params = [c,β,γ]
+
 #pop starts at 6000, with one Infected
 S = 5999
 I = 1
@@ -33,9 +35,5 @@ data_time = [15,16,17,18,19,20,21,22,23,24,25]
 data_s = [0,0,1,2,5]
 data_time_s = [21,22,23,24,25]
 
-plot_error(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, data_s, data_time_s, β_range)
 
-β_vals = get_beta_range(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, data_s, data_time_s, β_range, 0.05)
-printf(β_vals)
-
-plot_range(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, β_vals, 2)
+sol = simulate_model
