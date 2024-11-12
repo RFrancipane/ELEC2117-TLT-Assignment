@@ -33,9 +33,15 @@ data_time = [15,16,17,18,19,20,21,22,23,24,25]
 data_s = [0,0,1,2,5]
 data_time_s = [21,22,23,24,25]
 
-plot_error(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, data_s, data_time_s, β_range)
-
 β_vals = get_beta_range(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, data_s, data_time_s, β_range, 0.25)
 println(β_vals)
 
-plot_range(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, β_vals, 2)
+plot_error(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, data_s, data_time_s, β_range)
+
+params = [S, I, Is, R, c, β_vals[2], γ, ps, γs, α]
+ps_vals = get_parameter_range(params, tspan, data_s, data_time_s, [0.15,0.25],3, 8, 0.25)
+println(ps_vals)
+
+
+
+plot_range(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, β_vals, 2, ["SIRS Infected Population Prediction", "Time", "Infected Population", "DOH Data"])

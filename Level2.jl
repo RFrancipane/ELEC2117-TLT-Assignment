@@ -3,12 +3,10 @@ using Revise
 
 #define parameters for SIR model
 c = 8 #8 Estimated contacts per person
-β = 0.035 # Transmission Probability
+β = 0.036 # Transmission Probability
 
 
-#n = 10 #number of infection days
-#p = 0.5 #chance of recovery in n days
-γ = 1/7 # 1/10
+γ = 1/7 #7 days to recover
 ps = 0.2 #20% chance of serious infection
 γs = 1/14 #serious infection for 14 days
 α = 1/30 # 1 month till Susceptible
@@ -41,10 +39,10 @@ data_time_s = [21,22,23,24,25]
 solution = simulate_model(S, I, Is, R, c, β, γ, ps, γs, α, tspan)
 
 
-plot_solution(solution,2,data,data_time)
+plot_solution(solution,2,data,data_time, ["Infected population model", "Time", "Population Infected", "SIRS Model", "DOH Data"])
 
 
-plot_solution(solution,3,data_s,data_time_s)
+plot_solution(solution,3,data_s,data_time_s, ["Seriously Infected population model", "Time", "Population Seriously Infected", "SIRS Model", "DOH Data"])
 plot_solution_SIRS(solution)
 
-#println(get_R0(c, β, γ, ps, γs))
+println(get_R0(c, β, γ))
