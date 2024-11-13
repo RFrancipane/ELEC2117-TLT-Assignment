@@ -31,6 +31,7 @@ data = [11,7,20,3,29,14,11,12,16,10,58,34,26,29,51,55,155,53,67,98,130,189,92,19
 data_time = [15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56]
 data_s = [0,0,1,2,5,5,5,2,9,4,22,0,15,48,38,57,9,18,20,0,41,15,35,36,27,38,24,40,34,57,18,29,63,66,119,76]
 data_time_s = [21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56]
+params = get_parameter_array(S, I, Is, R, c, β, γ, ps, γs, α, ϵ, Φ, int_time)
 
 plot_range(params, tspan, data, data_time, β_vals, 2, 6, ["SIRS Infected Population Prediction", "Time", "Infected Population", "DOH Infected Population Data"],
             ["Worst case", "Mean case", "Best Case"])
@@ -42,7 +43,6 @@ plot_range(params, tspan, data_s, data_time_s, β_vals, 3, 6, ["SIRS Seriously I
 
 data_post_intervention = data[17:end]
 data_time_post_intervention = data_time[17:end]
-params = get_parameter_array(S, I, Is, R, c, β, γ, ps, γs, α, ϵ, Φ, int_time)
 plot_error(params, tspan, data_post_intervention, data_time_post_intervention, 2, 12, [0.4,0.9], ["Φ", "Φ vs Mean Squared Error (Time > 30 Days)"])
 Φ_range = get_parameter_range(params, tspan, data_post_intervention, data_time_post_intervention, [0.4,0.9],2, 12, 0.5)
 
