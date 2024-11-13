@@ -5,6 +5,7 @@ using Plots
 #define parameters for SIR model
 c = 8 #8 Estimated contacts per person
 β = 0.0352
+β_vals = [0.0318, 0.0352, 0.0374]
 
 
 #n = 10 #number of infection days
@@ -31,9 +32,6 @@ R = 0
 tspan = [0,365/2]
 
 
-solution = simulate_model(S, I, Is, R, c, β, γ, ps, γs, α, ϵ, Φ, int_time, tspan)
-
-plot_solution_SIRS(solution)
 
 #new data
 data = [11,7,20,3,29,14,11,12,16,10,58,34,26,29,51,55]
@@ -41,16 +39,13 @@ data_time = [15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
 data_s = [0,0,1,2,5,5,5,2,9,4]
 data_time_s = [21,22,23,24,25,26,27,28,29,30]
 
+β_vals = get_beta_range(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, data_s, data_time_s, β_range, 0.5)
+println(β_vals)
 
-plot_solution(solution, 2, data, data_time)
-plot_solution(solution, 3, data_s, data_time_s)
+params = [S, I, Is, R, c, β, γ, ps, γs, α, ϵ, Φ, int_time]
 
-params = get_parameter_array(S, I, Is, R, c, β, γ, ps, γs, α, ϵ, Φ, int_time)
-plot_error(params, tspan, data, data_time, 2, 12, [0.4,0.9])
-get_parameter_range(params, tspan, data, data_time, [0.4,0.9],2, 12, 0.2)
+plot_range(params, tspan, data, data_time, β_vals, 2, 6, ["SIRS Infected Population Prediction", "Time", "Infected Population", "DOH Infected Population Data"],
+            ["Worst case", "Mean case", "Best Case"])
 
-Φ = 0.6087 #Observed value
-
-solution = simulate_model(S, I, Is, R, c, β, γ, ps, γs, α, ϵ, Φ, int_time, tspan)
-plot_solution(solution, 2, data, data_time)
-plot_solution(solution, 3, data_s, data_time_s)
+plot_range(params, tspan, data_s, data_time_s, β_vals, 3, 6, ["SIRS Seriously Infected Population Prediction", "Time", "Seriously Infected Population", "DOH Data"],
+            ["Worst case", "Mean case", "Best Case"])
