@@ -5,7 +5,7 @@ using Plots
 #define parameters for SIR model
 c = 8 #8 Estimated contacts per person
 #β = 0.031 # Transmission Probability
-β_range = [0.03, 0.04]
+β_range = [0.02, 0.05]
 
 
 #n = 10 #number of infection days
@@ -36,7 +36,7 @@ data_time_s = [21,22,23,24,25]
 β_vals = get_beta_range(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, data_s, data_time_s, β_range, 0.5)
 println(β_vals)
 
-plot_error(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, data_s, data_time_s, β_range)
+plot_error(S, I, Is, R, c, γ, ps, γs, α, tspan, data, data_time, β_range)
 
 #params = [S, I, Is, R, c, β_vals[2], γ, ps, γs, α]
 #ps_vals = get_parameter_range(params, tspan, data_s, data_time_s, [0.15,0.25],3, 8, 1)

@@ -66,9 +66,6 @@ ps_range = get_parameter_range(params, tspan, data_s, data_time_s, [0.05,0.3],3,
 params[8] = ps_range[2]
 
 
-plot_range(params,tspan, data, data_time, β_range, 2, 6, ["SIRS Infected Population Prediction", "Time", "Infected Population", "DOH Infected Population Data"], 
-            ["Worst case", "Mean case", "Best Case"])
-
 
 
 params = [9999.0,    1.0,    0.0,    0.0,    8.0,    0.035,    0.12,    0.163,    0.062,    0.03333333333333333,    0.3,    0.609,   35.0]
