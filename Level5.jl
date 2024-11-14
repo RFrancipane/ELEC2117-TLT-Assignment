@@ -4,7 +4,7 @@ using Plots
 
 #define parameters for SIR model
 c = 8 #8 Estimated contacts per person
-β = 0.0352
+β = 0.0345
 
 
 #n = 10 #number of infection days
@@ -15,7 +15,7 @@ ps = 0.2 #20% chance of serious infection
 α = 1/30 # 1 month till Susceptible
 
 ϵ = 0.3
-Φ = 0.6067
+Φ = 0.609
 Φ_range = [0.476,0.609,0.768]
 int_time = 35
 
@@ -29,7 +29,7 @@ Is = 0
 R = 0
 
 #simulate 6 months
-tspan = [9,365/2]
+tspan = [0,365/2]
 
 #new data pre intervention
 
@@ -52,12 +52,11 @@ data_time = [27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,4
 data_time_s = data_time
 #params = optimise_parameters(params, tspan, data, data_time, data_s, data_time_s, variable_params, 20)
 
-#params = [9999.0, 1.0, 0.0, 0.0, 8.0, 0.038, 0.145, 0.134, 0.07, 0.03333333333333333, 0.3, 0.595, 35.0]
-params = [9999.0, 1.0, 0.0, 0.0, 8.0, 0.038, 0.145, 0.134, 0.07, 0.03333333333333333, 0.3, 0.609, 35.0]
+params = [9999.0, 1.0, 0.0, 0.0, 8.0, 0.039, 0.145, 0.141, 0.071, 0.03333333333333333, 0.3, 0.609, 35.0]
 
 #Find β range
-plot_error(params, tspan, data, data_time, 2, 6, [0.02,0.04], ["β", "β vs Mean Squared Error"])
-β_range = get_parameter_range(params, tspan, data, data_time, [0.02,0.04],2, 6, 0.5)
+plot_error(params, tspan, data, data_time, 2, 6, [0.02,0.05], ["β", "β vs Mean Squared Error"])
+β_range = get_parameter_range(params, tspan, data, data_time, [0.02,0.05],2, 6, 0.5)
 
 params[6] = β_range[2]
 
@@ -69,8 +68,7 @@ params[8] = ps_range[2]
 
 
 params = [9999.0,    1.0,    0.0,    0.0,    8.0,    0.035,    0.12,    0.163,    0.062,    0.03333333333333333,    0.3,    0.609,   35.0]
-plot_range(params,tspan, data, data_time, β_range, 2, 6, ["SIRS Infected Population Prediction", "Time", "Infected Population", "DOH Infected Population Data"], 
-            ["Worst case", "Mean case", "Best Case"])
+
 plot_range(params,tspan, data, data_time, Φ_range, 2, 12, ["SIRS Infected Population Prediction", "Time", "Infected Population", "DOH Infected Population Data"], 
             ["Worst case", "Mean case", "Best Case"])
 plot_range(params,tspan, data_s, data_time_s, Φ_range, 3, 12, ["SIRS Seriously Infected Population Prediction", "Time", "Seriously Infected Population", "DOH Data"],
